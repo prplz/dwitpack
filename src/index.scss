@@ -1,0 +1,19 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/mixins/grid-framework";
+@import "~bootstrap/scss/mixins/grid";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/utilities/spacing";
+
+#input, #output {
+  width: 100%;
+  border: 1px solid #888;
+  padding:  0.5em 1em;
+  border-radius: 0.4em;
+  margin: 0;
+  min-height: 6em;
+  outline: none !important;
+  display: block;
+  word-break: break-all;
+  font-family: monospace;
+}
