@@ -1,4 +1,5 @@
-import './index.scss';
+import 'normalize.css/normalize.css';
+import './index.css';
 
 const $ = document.querySelector.bind(document);
 

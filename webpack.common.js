@@ -1,5 +1,6 @@
 const CleanPlugin = require('clean-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const HtmlInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -9,18 +10,19 @@ module.exports = {
     plugins: [
         new CleanPlugin(['dist']),
         new HtmlPlugin({
-            template: 'src/index.html'
+            template: 'src/index.html',
+            inlineSource: /\.(css|js)$/,
         }),
+        new HtmlInlineSourcePlugin(),
         new MiniCssExtractPlugin()
     ],
     module: {
         rules: [
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader'
+                    'css-loader'
                 ]
             }
         ]

@@ -1,0 +1,54 @@
+body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+}
+
+@media screen and (max-width: 1199px) {
+    main {
+        margin: 0 1.5em;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    main {
+        width: calc(1200px - 3em);
+        margin: 0 auto;
+    }
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-left: -1em;
+    margin-right: -1em;
+}
+
+.col {
+    margin-left: 1em;
+    margin-right: 1em;
+    flex: 1;
+}
+
+@media screen and (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+    .col {
+        margin-bottom: 1em;
+    }
+}
+
+#input {
+    width: 100%;
+    display: block;
+}
+
+#input, #output {
+    box-sizing: border-box;
+    border: 1px solid #888;
+    padding: 0.5em 1em;
+    border-radius: 0.4em;
+    min-height: 6em;
+    outline: none !important;
+    word-break: break-all;
+    font-family: monospace;
+}
