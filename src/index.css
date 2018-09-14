@@ -50,3 +50,8 @@ main {
     font-family: monospace;
     margin: 0.5em 0;
 }
+
+.icon {
+    height: 1em;
+    vertical-align: -.125em;
+}
