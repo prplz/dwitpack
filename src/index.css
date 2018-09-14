@@ -37,18 +37,16 @@ main {
     }
 }
 
-#input {
-    width: 100%;
-    display: block;
-}
-
 #input, #output {
+    width: 100%;
+    resize: vertical;
+    display: block;
     box-sizing: border-box;
     border: 1px solid #888;
     padding: 0.5em 1em;
     border-radius: 0.4em;
-    min-height: 6em;
     outline: none !important;
     word-break: break-all;
     font-family: monospace;
+    margin: 0.5em 0;
 }
