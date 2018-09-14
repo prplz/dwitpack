@@ -1,17 +1,16 @@
 body {
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
 }
 
-@media screen and (max-width: 1199px) {
+main {
+    width: calc(1200px - 3em);
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1200px) {
     main {
+        width: auto;
         margin: 0 1.5em;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    main {
-        width: calc(1200px - 3em);
-        margin: 0 auto;
     }
 }
 
@@ -32,6 +31,7 @@ body {
     .row {
         flex-direction: column;
     }
+
     .col {
         margin-bottom: 1em;
     }
