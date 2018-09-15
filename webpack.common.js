@@ -10,7 +10,7 @@ module.exports = {
     plugins: [
         new CleanPlugin(['dist']),
         new HtmlPlugin({
-            template: 'src/index.html',
+            template: 'src/index.ejs',
             inlineSource: /\.(css|js)$/,
         }),
         new HtmlInlineSourcePlugin(),
@@ -24,14 +24,6 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader'
-            },
-            {
-                test: /\.svg$/,
-                loader: 'file-loader'
             }
         ]
     },
