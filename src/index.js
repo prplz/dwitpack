@@ -3,17 +3,26 @@ import './index.css';
 
 const $ = document.querySelector.bind(document);
 
+const Mode = {
+    UNICODE_2: 'unicode-2',
+    UNICODE_3: 'unicode-3'
+};
+
+let mode = Mode.UNICODE_2;
+
 function onInput() {
-    const source = $('#input').value;
-    $('#input-count').textContent = `${source.length} chars`;
+    const input = $('#input').value;
+    $('#input-count').textContent = `${input.length} chars`;
 
     try {
         let output;
-        const decompressMatch = source.match(/eval\((unescape\(escape`.*\))\)/);
+        const decompressMatch = input.match(/eval\((unescape\(escape`.*\))\)/);
         if (decompressMatch) {
             output = eval(decompressMatch[1]);
-        } else {
-            output = compressUnicode2(source);
+        } else if (mode === Mode.UNICODE_2) {
+            output = compressUnicode2(input);
+        } else if (mode === Mode.UNICODE_3) {
+            output = compressUnicode3(input);
         }
         $('#output').textContent = output;
         $('#output-count').textContent = `${output.length} chars`;
@@ -21,6 +30,11 @@ function onInput() {
         $('#output').textContent = `Error: ${e}`;
         $('#output-count').textContent = '';
     }
+}
+
+function setMode(newMode) {
+    mode = newMode;
+    onInput();
 }
 
 // http://xem.github.io/golfing/#jstweet_en
@@ -53,9 +67,11 @@ function compressUnicode3(input) {
             throw 'Input must contain only characters 32-127';
         }
     }
+    // must start with a semicolon
     if (!input.startsWith(';')) {
         input = ';' + input;
     }
+    // pad with spaces to get a length which is a multiple of 3
     while (input.length % 3 !== 0) {
         input += ' ';
     }
@@ -78,5 +94,8 @@ function compressUnicode3(input) {
 }
 
 $('#input').addEventListener('input', onInput);
+
+$('#mode-unicode-2').addEventListener('change', () => setMode(Mode.UNICODE_2));
+$('#mode-unicode-3').addEventListener('change', () => setMode(Mode.UNICODE_3));
 
 onInput();
