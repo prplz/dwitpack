@@ -12,7 +12,7 @@ let mode = Mode.UNICODE_2;
 
 function onInput() {
     const input = $('#input').value;
-    $('#input-count').textContent = `${input.length} chars`;
+    $('#input-count').textContent = `${[...input].length} chars`;
 
     try {
         let output;
@@ -25,7 +25,7 @@ function onInput() {
             output = compressUnicode3(input);
         }
         $('#output').textContent = output;
-        $('#output-count').textContent = `${output.length} chars`;
+        $('#output-count').textContent = `${[...output].length} chars`;
     } catch (e) {
         $('#output').textContent = `Error: ${e}`;
         $('#output-count').textContent = '';
