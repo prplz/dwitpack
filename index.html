@@ -244,21 +244,22 @@
         input += ' ';
       }
       let output = '';
-      for (let i = 0; i < input.length; i += 3) {
-        output += String.fromCodePoint(input.charCodeAt(i) - 31 +
-          (input.charCodeAt(i + 1) - 31) * 97 +
-          (input.charCodeAt(i + 2) - 31) * 97 * 97);
+      for (let i = 0; i < input.length / 3; i++) {
+        output += String.fromCodePoint(
+          (input.charCodeAt(i) - 31) * 97 * 97 +
+          (input.charCodeAt(i + input.length / 3) - 31) * 97 +
+          input.charCodeAt(i + 2 * input.length / 3) - 31);
       }
       let test = '';
-      for (const c of output) {
-        for (let v = c.codePointAt(0); v | 0; v /= 97) {
-          test += String.fromCharCode(v % 97 + 31);
+      for (let i = 2; i >= 0; i--) {
+        for (const c of output) {
+          test += String.fromCharCode(c.codePointAt(0) / 97 ** i % 97 + 31);
         }
       }
       if (test !== input) {
         throw 'Failed to compress';
       }
-      return `_=0;for(c of'${output}')for(v=c.codePointAt();v|0;v/=97)_+=String.fromCharCode(v%97+31);eval(_)`;
+      return `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
     }
 
     $('#input').addEventListener('input', onInput);
