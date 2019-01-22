@@ -153,9 +153,34 @@
 
     let mode = Mode.UNICODE_2;
 
+    // Adapted from https://mths.be/punycode / https://github.com/JRaspass/code-golf
+    function string_length(string) {
+      let chars = 0;
+      let counter = 0;
+      const length = string.length;
+      while (counter < length) {
+        const value = string.charCodeAt(counter++);
+        if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+          // It's a high surrogate, and there is a next character.
+          const extra = string.charCodeAt(counter++);
+          if ((extra & 0xFC00) == 0xDC00) { // Low surrogate.
+            chars++;
+          } else {
+            // It's an unmatched surrogate; only append this code unit, in case the
+            // next code unit is the high surrogate of a surrogate pair.
+            chars++;
+            counter--;
+          }
+        } else {
+          chars++;
+        }
+      }
+      return chars;
+    }
+
     function onInput() {
       const input = $('#input').value;
-      $('#input-count').textContent = `${[...input].length} chars`;
+      $('#input-count').textContent = `${string_length(input)} chars`;
 
       try {
         let output;
@@ -168,7 +193,7 @@
           output = compressUnicode3(input);
         }
         $('#output').textContent = output;
-        $('#output-count').textContent = `${[...output].length} chars`;
+        $('#output-count').textContent = `${string_length(output)} chars`;
       } catch (e) {
         $('#output').textContent = `Error: ${e}`;
         $('#output-count').textContent = '';
